@@ -63,7 +63,7 @@ function acInner(source: number) {
   return Math.sign(value) * Math.abs(value) ** 2;
 }
 
-export default function render(
+export function render(
   source: string,
   target: HTMLCanvasElement | OffscreenCanvas,
   punch = 1

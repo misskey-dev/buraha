@@ -1,16 +1,14 @@
 {
   "packageManager": "pnpm@8.4.0",
   "name": "buraha",
-  "private": true,
+  "main": "dist/index.js",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "tsc"
   },
-  "dependencies": {
-    "terser": "^5.17.1",
+  "devDependencies": {
     "typescript": "~5.0.4",
     "vite": "^4.3.3"
   }

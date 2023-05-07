@@ -2,7 +2,7 @@
 <style>body{display:flex;justify-content:space-evenly;margin:0}body,html{height:100%}body:hover>section:first-child{order:2}canvas{display:block}figcaption{line-height:2}figcaption::after{content:" ms"}figure{margin:0}figure:not(:first-of-type)>canvas{height:0}</style>
 <script type="module">
 import { decode } from "https://unpkg.com/blurhash@2.0.5/dist/index.mjs"
-import render from "/src/index.ts"
+import { render } from "/src/index.ts"
 const source = "|HF5]+Yk^6#M9wKSW@j=#*@-5b,1J5O[V=Nfs;w[@[or[k6.O[TLtJnNnO};FxngOZE3NgNHsps,jMFxS#OtcXnzRjxZxHj]OYNeR:JCs9xunhwIbeIpNaxHNGr;v}aeo0Xmt6XS$et6#*$ft6nhxHnNV@w{nOenwfNHo0"
 const buraha = document.body.appendChild(document.createElement("section"))
 buraha.appendChild(document.createElement("h2")).textContent = "buraha"
