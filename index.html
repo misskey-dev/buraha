@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <style>body{box-sizing:border-box;display:flex;justify-content:space-evenly;margin:0;padding:4em 0 0}body,html{height:100%}h1:hover+section{order:2}canvas{display:block}figcaption{line-height:2}figcaption::after{content:" ms"}figure{margin:0}figure:not(:first-of-type)>canvas{height:0}h1{position:absolute;top:0}pre{width:256px}</style>
 <script type="module">
+import { decode } from "https://unpkg.com/blurhash@2.0.5/dist/index.mjs"
 import { Bench } from "https://unpkg.com/tinybench@2.5.0/dist/index.js"
 import { render } from "/src/index.ts"
 const source = "|HF5]+Yk^6#M9wKSW@j=#*@-5b,1J5O[V=Nfs;w[@[or[k6.O[TLtJnNnO};FxngOZE3NgNHsps,jMFxS#OtcXnzRjxZxHj]OYNeR:JCs9xunhwIbeIpNaxHNGr;v}aeo0Xmt6XS$et6#*$ft6nhxHnNV@w{nOenwfNHo0"
