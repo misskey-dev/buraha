@@ -112,8 +112,6 @@ in vec2 a;` +
   );
   gl.compileShader(vertexShader);
   const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)!;
-  const fragWidth = width - 1;
-  const fragHeight = height - 1;
   gl.shaderSource(
     fragmentShader,
     // prettier-ignore
@@ -122,24 +120,40 @@ precision mediump float;` +
       `in vec2 c;` +
       `uniform sampler2D d;` +
       `out vec4 e;` +
-      // FIXME: rewrite with bi-cubic interpolation
+      `vec3 f(vec3 a,vec3 b,vec3 c,vec3 d,float e){` +
+      `float f=e*e,` +
+            `g=f*e;` +
+      `return(d/2.-c*3./2.+b*3./2.-a/2.)*g+(a-b*5./2.+c*2.-d/2.)*f+(c/2.-a/2.)*e+b;` +
+      `}` +
       `void main(){` +
-      `vec2 f=floor(c*vec2(${fragWidth},${fragHeight}))/vec2(${fragWidth},${fragHeight}),` +
-           `g=f+vec2(1./${fragWidth}.,1./${fragHeight}.),` +
-           `h=vec2(g.x,f.y),` +
-           `i=vec2(f.x,g.y);` +
-      `vec3 j=texture(d,f).rgb,` +
-           `k=texture(d,h).rgb,` +
-           `l=texture(d,i).rgb,` +
-           `m=texture(d,g).rgb;` +
-      `float n=(g.x-c.x)*(g.y-c.y),` +
-            `o=(c.x-i.x)*(i.y-c.y),` +
-            `p=(h.x-c.x)*(c.y-h.y),` +
-            `q=(c.x-f.x)*(c.y-f.y);` +
-      `vec3 r=(j*n+k*o+l*p+m*q)/(n+o+p+q),` +
-           `s=pow(abs(r),vec3(1./2.4))*1.055-vec3(.055);` +
-      `s=mix(r*12.92,s,step(.0031308,r));` +
-      `e=vec4(s,1.);` +
+      `vec2 g=vec2(${width},${height}),` +
+           `h=c*g+.5,` +
+           `i=fract(h);` +
+      `h=(floor(h)-.5)/g;` +
+      `vec3 k=texture(d,h+vec2(-1.)/g).rgb,` +
+           `l=texture(d,h+vec2(0.,-1.)/g).rgb,` +
+           `m=texture(d,h+vec2(1.,-1.)/g).rgb,` +
+           `n=texture(d,h+vec2(2.,-1.)/g).rgb,` +
+           `o=texture(d,h+vec2(-1.,0.)/g).rgb,` +
+           `p=texture(d,h).rgb,` +
+           `q=texture(d,h+vec2(1.,0.)/g).rgb,` +
+           `r=texture(d,h+vec2(2.,0.)/g).rgb,` +
+           `s=texture(d,h+vec2(-1.,1.)/g).rgb,` +
+           `t=texture(d,h+vec2(0.,1.)/g).rgb,` +
+           `u=texture(d,h+vec2(1.)/g).rgb,` +
+           `v=texture(d,h+vec2(2.,1.)/g).rgb,` +
+           `w=texture(d,h+vec2(-1.,2.)/g).rgb,` +
+           `x=texture(d,h+vec2(0.,2.)/g).rgb,` +
+           `y=texture(d,h+vec2(1.,2.)/g).rgb,` +
+           `z=texture(d,h+vec2(2.)/g).rgb,` +
+           `A=f(k,l,m,n,i.x),` +
+           `B=f(o,p,q,r,i.x),` +
+           `C=f(s,t,u,v,i.x),` +
+           `D=f(w,x,y,z,i.x),` +
+           `E=f(A,B,C,D,i.y),` +
+           `F=pow(abs(E),vec3(1./2.4))*1.055-vec3(.055);` +
+      `F=mix(E*12.92,F,step(.0031308,E));` +
+      `e=vec4(F,1.);` +
       `}`
   );
   gl.compileShader(fragmentShader);
