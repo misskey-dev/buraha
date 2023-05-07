@@ -1,3 +1,3 @@
 # buraha
 
-**Bu**l**r**"Yet **A**nother"**Ha**sh
+**B**l**ur**"Yet **A**nother"**Ha**sh
