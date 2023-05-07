@@ -4,6 +4,9 @@
   "main": "dist/index.js",
   "version": "0.0.0",
   "type": "module",
+  "files": [
+    "built"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc"
