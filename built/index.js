@@ -70,7 +70,7 @@ export function render(source, target, punch = 1) {
     const colors = new Float32Array(width * height * 3);
     for (let i = 0; i < width * height; i++) {
         const w = i % width;
-        const h = (i - w) / width;
+        const h = height - 1 - (i - w) / width;
         const target = colors.subarray(i * 3, (i + 1) * 3);
         for (let y = 0; y < height; y++) {
             const z = dcos(y * h, height);
@@ -160,7 +160,6 @@ precision mediump float;` +
     const texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
-    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB16F, width, height, 0, gl.RGB, gl.FLOAT, colors);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
