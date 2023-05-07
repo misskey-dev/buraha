@@ -127,7 +127,7 @@ precision mediump float;` +
       `}` +
       `void main(){` +
       `vec2 g=vec2(${width},${height}),` +
-           `h=c*g+.5,` +
+           `h=c*g+vec2(1.,0.),` +
            `i=fract(h);` +
       `h=(floor(h)-.5)/g;` +
       `vec3 k=texture(d,h+vec2(-1.)/g).rgb,` +
