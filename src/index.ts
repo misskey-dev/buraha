@@ -136,30 +136,10 @@ precision mediump float;` +
            `h=c*g+vec2(1.,0.),` +
            `i=fract(h);` +
       `h=(floor(h)-.5)/g;` +
-      `vec3 k=texture(d,h+vec2(-1.)/g).rgb,` +
-           `l=texture(d,h+vec2(0.,-1.)/g).rgb,` +
-           `m=texture(d,h+vec2(1.,-1.)/g).rgb,` +
-           `n=texture(d,h+vec2(2.,-1.)/g).rgb,` +
-           `o=texture(d,h+vec2(-1.,0.)/g).rgb,` +
-           `p=texture(d,h).rgb,` +
-           `q=texture(d,h+vec2(1.,0.)/g).rgb,` +
-           `r=texture(d,h+vec2(2.,0.)/g).rgb,` +
-           `s=texture(d,h+vec2(-1.,1.)/g).rgb,` +
-           `t=texture(d,h+vec2(0.,1.)/g).rgb,` +
-           `u=texture(d,h+vec2(1.)/g).rgb,` +
-           `v=texture(d,h+vec2(2.,1.)/g).rgb,` +
-           `w=texture(d,h+vec2(-1.,2.)/g).rgb,` +
-           `x=texture(d,h+vec2(0.,2.)/g).rgb,` +
-           `y=texture(d,h+vec2(1.,2.)/g).rgb,` +
-           `z=texture(d,h+vec2(2.)/g).rgb,` +
-           `A=f(k,l,m,n,i.x),` +
-           `B=f(o,p,q,r,i.x),` +
-           `C=f(s,t,u,v,i.x),` +
-           `D=f(w,x,y,z,i.x),` +
-           `E=f(A,B,C,D,i.y),` +
-           `F=pow(abs(E),vec3(1./2.4))*1.055-vec3(.055);` +
-      `F=mix(E*12.92,F,step(.0031308,E));` +
-      `e=vec4(F,1.);` +
+      `vec3 k=f(f(texture(d,h+vec2(-1.)/g).rgb,texture(d,h+vec2(0.,-1.)/g).rgb,texture(d,h+vec2(1.,-1.)/g).rgb,texture(d,h+vec2(2.,-1.)/g).rgb,i.x),f(texture(d,h+vec2(-1.,0.)/g).rgb,texture(d,h).rgb,texture(d,h+vec2(1.,0.)/g).rgb,texture(d,h+vec2(2.,0.)/g).rgb,i.x),f(texture(d,h+vec2(-1.,1.)/g).rgb,texture(d,h+vec2(0.,1.)/g).rgb,texture(d,h+vec2(1.)/g).rgb,texture(d,h+vec2(2.,1.)/g).rgb,i.x),f(texture(d,h+vec2(-1.,2.)/g).rgb,texture(d,h+vec2(0.,2.)/g).rgb,texture(d,h+vec2(1.,2.)/g).rgb,texture(d,h+vec2(2.)/g).rgb,i.x),i.y),` +
+           `l=pow(abs(k),vec3(1./2.4))*1.055-vec3(.055);` +
+      `l=mix(k*12.92,l,step(.0031308,k));` +
+      `e=vec4(l,1.);` +
       `}`
   );
   gl.compileShader(fragmentShader);
