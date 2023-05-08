@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<style>body{box-sizing:border-box;display:flex;justify-content:space-evenly;margin:0;padding:4em 0 0}body,html{height:100%}h1:hover+section{order:2}canvas{display:block}figcaption{line-height:2}figcaption::after{content:" ms"}figure{margin:0}figure:not(:first-of-type)>canvas{height:0}h1{position:absolute;top:0}pre{width:256px}</style>
+<style>body{box-sizing:border-box;display:flex;justify-content:space-evenly;margin:0;padding:4em 0 0}body,html{height:100%}h1:hover+section{order:2}img{display:block}figcaption{line-height:2}figcaption::after{content:" ms"}figure{margin:0}h1{position:absolute;top:0}pre{width:256px}</style>
 <script type="module">
 import { decode } from "https://unpkg.com/blurhash@2.0.5/dist/index.mjs"
 import { Bench } from "https://unpkg.com/tinybench@2.5.0/dist/index.js"
 import { render } from "/src/index.ts"
 const source = "|HF5]+Yk^6#M9wKSW@j=#*@-5b,1J5O[V=Nfs;w[@[or[k6.O[TLtJnNnO};FxngOZE3NgNHsps,jMFxS#OtcXnzRjxZxHj]OYNeR:JCs9xunhwIbeIpNaxHNGr;v}aeo0Xmt6XS$et6#*$ft6nhxHnNV@w{nOenwfNHo0"
 const buraha = document.body.appendChild(document.createElement("section"))
-buraha.appendChild(document.createElement("h2")).textContent = "buraha"
+buraha.appendChild(document.createElement("h2")).textContent = "Buraha"
 const blurhash = document.body.appendChild(document.createElement("section"))
-blurhash.appendChild(document.createElement("h2")).textContent = "blurhash"
+blurhash.appendChild(document.createElement("h2")).textContent = "BlurHash"
 function runBuraha() {
   const canvas = document.createElement("canvas")
   canvas.width = 256
@@ -27,9 +27,11 @@ function runBlurHash() {
   context.putImageData(imageData, 0, 0)
   return canvas
 }
-buraha.appendChild(runBuraha())
-blurhash.appendChild(runBlurHash())
-requestAnimationFrame(async () => {
+const burahaImage = buraha.appendChild(new Image())
+const blurhashImage = blurhash.appendChild(new Image())
+burahaImage.src = runBuraha().toDataURL()
+blurhashImage.src = runBlurHash().toDataURL()
+Promise.all([burahaImage.decode(), blurhashImage.decode()]).then(async () => {
   const bench = new Bench({ time: 4096 })
   bench
     .add("Buraha", runBuraha)
