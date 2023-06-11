@@ -10,35 +10,8 @@ function base83decode(source: string) {
   return result;
 }
 
-const SQRT2_NSQRT2 = Math.sqrt(2 - Math.SQRT2);
-const SQRT2_PSQRT2 = Math.sqrt(2 + Math.SQRT2);
-const SQRT3 = Math.sqrt(3);
-const SQRT5 = Math.sqrt(5);
-const PI1PER7RAD = 0.9009688679024191;
-const PI2PER7RAD = 0.6234898018587335;
-const PI3PER7RAD = 0.2225209339563144;
-const PI1PER9RAD = 0.9396926207859084;
-const PI2PER9RAD = 0.766044443118978;
-const PI4PER9RAD = 0.17364817766693036;
-
-// prettier-ignore
-const cosMap = [
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  1, -1, 0, 0, 0, 0, 0, 0, 0, 0,
-  1, 0, -1, 0, 0, 0, 0, 0, 0, 0,
-  1, 0.5, -0.5, -1, 0, 0, 0, 0, 0, 0,
-  1, Math.SQRT2 / 2, 0, -Math.SQRT2 / 2, -1, 0, 0, 0, 0, 0,
-  1, (SQRT5 + 1) / 4, (SQRT5 - 1) / 4, -(SQRT5 - 1) / 4, -(SQRT5 + 1) / 4, -1, 0, 0, 0, 0,
-  1, SQRT3 / 2, 0.5, 0, -0.5, -SQRT3 / 2, -1, 0, 0, 0,
-  1, PI1PER7RAD, PI2PER7RAD, PI3PER7RAD, -PI3PER7RAD, -PI2PER7RAD, -PI1PER7RAD, -1, 0, 0,
-  1, SQRT2_PSQRT2 / 2, Math.SQRT2 / 2, SQRT2_NSQRT2, 0, -SQRT2_NSQRT2 / 2, -Math.SQRT2 / 2, -(SQRT2_PSQRT2 / 2), -1, 0,
-  1, PI1PER9RAD, PI2PER9RAD, 0.5, PI4PER9RAD, -PI4PER9RAD, -0.5, -PI2PER9RAD, -PI1PER9RAD, -1,
-]
-
 function dcos(dividend: number, divisor: number) {
-  const mod = dividend % divisor;
-  const turn = (dividend - mod) / divisor;
-  return cosMap[divisor * 10 + mod] * (turn % 2 ? -1 : 1);
+  return Math.cos(Math.PI * dividend / divisor);
 }
 
 function dc(source: number, target: Float32Array) {
