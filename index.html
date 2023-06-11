@@ -4,28 +4,26 @@
 import { decode } from "https://unpkg.com/blurhash@2.0.5/dist/index.mjs"
 import { Bench } from "https://unpkg.com/tinybench@2.5.0/dist/index.js"
 import { render } from "/src/index.ts"
-const source = "|HF5]+Yk^6#M9wKSW@j=#*@-5b,1J5O[V=Nfs;w[@[or[k6.O[TLtJnNnO};FxngOZE3NgNHsps,jMFxS#OtcXnzRjxZxHj]OYNeR:JCs9xunhwIbeIpNaxHNGr;v}aeo0Xmt6XS$et6#*$ft6nhxHnNV@w{nOenwfNHo0"
+const params = new URLSearchParams(location.search)
+const source = params.get("source") || "|HF5]+Yk^6#M9wKSW@j=#*@-5b,1J5O[V=Nfs;w[@[or[k6.O[TLtJnNnO};FxngOZE3NgNHsps,jMFxS#OtcXnzRjxZxHj]OYNeR:JCs9xunhwIbeIpNaxHNGr;v}aeo0Xmt6XS$et6#*$ft6nhxHnNV@w{nOenwfNHo0"
 const buraha = document.body.appendChild(document.createElement("section"))
 buraha.appendChild(document.createElement("h2")).textContent = "Buraha"
 const blurhash = document.body.appendChild(document.createElement("section"))
 blurhash.appendChild(document.createElement("h2")).textContent = "BlurHash"
+const canvasBuraha = document.createElement("canvas")
+const canvasBlurHash = document.createElement("canvas")
+canvasBuraha.width = canvasBuraha.height = canvasBlurHash.width = canvasBlurHash.height = params.get("size") || 256
 function runBuraha() {
-  const canvas = document.createElement("canvas")
-  canvas.width = 256
-  canvas.height = 256
-  render(source, canvas, 1)
-  return canvas
+  render(source, canvasBuraha, 1)
+  return canvasBuraha
 }
 function runBlurHash() {
-  const canvas = document.createElement("canvas")
-  canvas.width = 256
-  canvas.height = 256
-  const pixels = decode(source, 256, 256)
-  const context = canvas.getContext("2d")
-  const imageData = context.createImageData(256, 256)
+  const pixels = decode(source, canvasBlurHash.width, canvasBlurHash.height)
+  const context = canvasBlurHash.getContext("2d")
+  const imageData = context.createImageData(canvasBlurHash.width, canvasBlurHash.height)
   imageData.data.set(pixels)
   context.putImageData(imageData, 0, 0)
-  return canvas
+  return canvasBlurHash
 }
 const burahaImage = buraha.appendChild(new Image())
 const blurhashImage = blurhash.appendChild(new Image())
